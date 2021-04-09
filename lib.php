@@ -29,19 +29,19 @@ function observation_get_course_content_items(\core_course\local\entity\content_
 
     $types = [];
 
+    // Every thing that gets added to the activity picker is an instance of the 'content_item' class
+    // An array is returned in case a mod might add multiple things to the activity picker
     // The 'External tool' entry (the main module content item), should always take the id of 1.
 
-    // TODO check user permissions to see activity
-    // TODO make this modular, replace hardcoded values
     $types = [new \core_course\local\entity\content_item(
-        1,
-        $defaultmodulecontentitem->get_name(),
-        $defaultmodulecontentitem->get_title(),
-        $defaultmodulecontentitem->get_link(),
-        $defaultmodulecontentitem->get_icon(),
-        $defaultmodulecontentitem->get_help(),
-        $defaultmodulecontentitem->get_archetype(),
-        $defaultmodulecontentitem->get_component_name()
+        1, // This is the ID of the content item (in case of multiples)
+        "observationActivityModule", // This is the internal name of the content item (not human readable)
+        new core_course\local\entity\string_title("Observation Activity Module"), // This is the human readable title that shows up on the activity picker (an instance of the string_title class)
+        new moodle_url('/mod/observation/pix/icon.png'), // TODO
+        $defaultmodulecontentitem->get_icon(), // TODO
+        $defaultmodulecontentitem->get_help(), // TODO
+        $defaultmodulecontentitem->get_archetype(), // TODO
+        $defaultmodulecontentitem->get_component_name() // TODO
     )];
     return $types;
 }
