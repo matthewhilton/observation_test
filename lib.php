@@ -36,12 +36,65 @@ function observation_get_course_content_items(\core_course\local\entity\content_
     $types = [new \core_course\local\entity\content_item(
         1, // This is the ID of the content item (in case of multiples)
         "observationActivityModule", // This is the internal name of the content item (not human readable)
-        new core_course\local\entity\string_title("Observation Activity Module"), // This is the human readable title that shows up on the activity picker (an instance of the string_title class)
-        new moodle_url('/mod/observation/pix/icon.png'), // TODO
-        $defaultmodulecontentitem->get_icon(), // TODO
+        new core_course\local\entity\string_title("Observation Assessment"), // This is the human readable title that shows up on the activity picker (an instance of the string_title class)
+        $defaultmodulecontentitem->get_link(), // TODO
+        '<img src="/mod/observation/pix/icon.png" />', // This is a string, which is the HTML for the icon. Images in the 'pix' folder are public by default.
         $defaultmodulecontentitem->get_help(), // TODO
         $defaultmodulecontentitem->get_archetype(), // TODO
         $defaultmodulecontentitem->get_component_name() // TODO
     )];
     return $types;
+}
+
+/**
+ * Adds an Observation instance.
+ * @param object $data
+ * @return int new observation instance id
+ */
+function observation_add_instance($data) {
+    global $DB;
+    $cmid = $data->coursemodule;
+
+    // Prepare array for insert
+    $insert_instance = array(
+        "course" => $cmid,
+        "name" => $data->name,
+        "intro" => "",
+        "timemodified" => time()
+    );
+    
+    // Insert into DB
+    $obs_id = $DB->insert_record('observation', $insert_instance);
+    return $obs_id;
+}
+
+/**
+ * Given an object containing all the necessary data,
+ * (defined by the form in mod_form.php) this function
+ * will update an existing instance with new data.
+ *
+ * @param object $data the data that came from the form.
+ * @return mixed true on success, false or a string error message on failure.
+ */
+function observation_update_instance($data) {
+    global $DB;
+    
+    print_object($data);
+
+    $data->id = $data->instance;
+    $data->intro="";
+
+
+    return $DB->update_record('observation', $data);
+}
+
+/**
+ * Delete observation instance.
+ * @param int $id
+ * @return bool true
+ */
+function observation_delete_instance($id) {
+    global $DB;
+    $DB->delete_records('observation', array('id' => $id));
+    return true;
 }

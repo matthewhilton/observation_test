@@ -15,10 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'en', branch 'MOODLE_20_STABLE'
+ * Strings for component 'observation', language 'en'
  *
  * @package   mod_observation
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pluginname'] = 'Observation';
+$string['name'] = 'Name';
+$string['general'] = 'General';
+$string['modulename'] = 'Observation';
+$string['modulenameplural'] = 'Observations';
+$string['modulename_help'] = 'TODO';
+$string['pluginadministration'] = 'Observation module administration';
