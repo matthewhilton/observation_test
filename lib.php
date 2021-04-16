@@ -36,7 +36,7 @@ function observation_get_course_content_items(\core_course\local\entity\content_
     $types = [new \core_course\local\entity\content_item(
         1, // This is the ID of the content item (in case of multiples)
         "observationActivityModule", // This is the internal name of the content item (not human readable)
-        new core_course\local\entity\string_title("Observation Assessment"), // This is the human readable title that shows up on the activity picker (an instance of the string_title class)
+        new core_course\local\entity\string_title("Observation"), // This is the human readable title that shows up on the activity picker (an instance of the string_title class)
         $defaultmodulecontentitem->get_link(), // TODO
         '<img src="/mod/observation/pix/icon.png" />', // This is a string, which is the HTML for the icon. Images in the 'pix' folder are public by default.
         $defaultmodulecontentitem->get_help(), // TODO
@@ -65,6 +65,7 @@ function observation_add_instance($data) {
     
     // Insert into DB
     $obs_id = $DB->insert_record('observation', $insert_instance);
+
     return $obs_id;
 }
 
@@ -79,11 +80,8 @@ function observation_add_instance($data) {
 function observation_update_instance($data) {
     global $DB;
     
-    print_object($data);
-
     $data->id = $data->instance;
     $data->intro="";
-
 
     return $DB->update_record('observation', $data);
 }

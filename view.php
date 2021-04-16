@@ -24,7 +24,7 @@
 
 require('../../config.php');
 
-$id       = optional_param('id', 0, PARAM_INT);        // Course module ID
+$id    = optional_param('id', 0, PARAM_INT);        // Course module ID
 $ob_id = optional_param('o', 0, PARAM_INT); // Observation instance ID
 
 // Can access directly from observation ID or from course module ID
@@ -46,8 +46,6 @@ if($ob_id) {
 
     $ob_id = $cm->instance;
 }
-
-echo $ob_id;
 
 // Get the observation instance (or error)
 if(!$observation = $DB->get_record('observation', array('id' => $ob_id))){
